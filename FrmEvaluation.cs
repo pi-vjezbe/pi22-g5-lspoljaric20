@@ -41,10 +41,33 @@ namespace Evaluation_Manager
             txtMinForSignature.Text = currentActivity.MinPointsForSignature + "/" + currentActivity.MaxPoints;
             numPoints.Minimum = 0;
             numPoints.Maximum = currentActivity.MaxPoints;
+
+           var evaluation = EvaulationRepository.GetEvaluation(student, currentActivity);
+            if(evaluation != null)
+            {
+                txtTeacher.Text = evaluation.Evaluator.ToString();
+                txtEvaluationDate.Text= evaluation.EvaulationDate.ToString();
+                numPoints.Value = evaluation.Points;
+            }
+            else
+            {
+                txtTeacher.Text = FrmLogin.LoggedTeacher.ToString();
+                txtEvaluationDate.Text = "-";
+                numPoints.Value= 0;
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            Close();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Activity currentActivity = cboActivities.SelectedItem as Activity;
+            int points = (int)numPoints.Value;
+            var teacher = FrmLogin.LoggedTeacher;
+            teacher.PerformEvaulation(student, currentActivity, points);
             Close();
         }
     }
