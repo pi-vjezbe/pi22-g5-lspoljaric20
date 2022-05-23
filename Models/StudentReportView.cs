@@ -27,6 +27,7 @@ namespace Evaluation_Manager.Models
             HasSignature = student.HasSignature() == true ? "DA" : "NE";
             HasGrade = student.HasGrade() == true ? "DA" : "NE";
             TotalPoints = student.CalculateTotalPoints();
+            Grade = student.CalculateGrade();
 
             var evaluations = student.GetEvaluations();
             var kolokvij1 = evaluations.FirstOrDefault(e => e.Activity.Name == "Kolokvij 1");
