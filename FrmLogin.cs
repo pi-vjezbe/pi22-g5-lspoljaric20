@@ -23,7 +23,6 @@ namespace Evaluation_Manager
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-           LoggedTeacher = TeacherRepositories.GetTeacher(txtUsername.Text);
             if (txtUsername.Text == "")
             {
                 MessageBox.Show("Korisničko ime nije uneseno!", "Problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -34,7 +33,10 @@ namespace Evaluation_Manager
             }
             else
             {
-                if (LoggedTeacher != null && LoggedTeacher.CheckPassword(txtPassword.Text))
+                LoggedTeacher = TeacherRepository.GetTeacher(txtUsername.Text);
+
+                if (LoggedTeacher != null && LoggedTeacher.Password == txtPassword.Text)
+
                 {
                     FrmStudents frmStudents = new FrmStudents();
                     Hide();

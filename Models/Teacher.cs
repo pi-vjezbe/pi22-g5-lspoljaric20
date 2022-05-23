@@ -17,18 +17,19 @@ namespace Evaluation_Manager.Models
             return Password == password;
         }
 
-        public void PerformEvaulation(Student student, Activity activity, int points)
+        public void PerformEvaluation(Student student, Activity activity, int points)
         {
-            var evaluation = EvaulationRepository.GetEvaluation(student, activity);
-
+            var evaluation = EvaluationRepository.GetEvaluation(student, activity);
             if (evaluation == null)
             {
-                EvaulationRepository.InsertEvaluation(student, activity, this, points);
+                EvaluationRepository.InsertEvaluation(student, activity, this, points);
             }
             else
             {
-                EvaulationRepository.UpdateEvaluation(evaluation, this, points);
+                EvaluationRepository.UpdateEvaluation(evaluation, this, points);
             }
         }
+
+
     }
 }
